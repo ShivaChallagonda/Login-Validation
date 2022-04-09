@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/login")
@@ -22,13 +23,14 @@ public class LoginServlet extends HttpServlet {
 		
         //Hardcoded the Username and Password
 		if(user.equals("shiva") && pswd.equals("123")) {
-			RequestDispatcher rd=request.getRequestDispatcher("dashboard");
-			request.setAttribute("user", user);
-	        rd.forward(request, response); 
+			HttpSession session =request.getSession();
+			session.setAttribute("user", user);
+			response.sendRedirect("dashboard.jsp");
 		}
 		else {
-			RequestDispatcher rd=request.getRequestDispatcher("error");
-		    rd.forward(request, response); 
+			
+			response.sendRedirect("error.jsp");
+		    
 		}
 	}
 
